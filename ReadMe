@@ -1,0 +1,31 @@
+Breakout Game
+
+by:
+Jiazhi Feng
+j27feng
+20475044
+
+how to run:
+Frist, go to src directory
+use "make run" will run the game in default parameters
+manually run the game by "java Main [frame-rate] [speed]"
+where speed should be in range from 1-6
+
+Note: some machines have lower java compiler version 1.7.
+if you are trying to make using these java compiler,
+you will have to manually type "javac -target [1.X] *.java" for it to work
+where 1.X is your java compiler version such as 1.7 or 1.5.
+
+
+Features:
+the game offers 2 levels that have different bricks layout
+one in a rectangle layout, another in a half-diamond layout.
+
+the game has a HP system where the players initially have 3 hearts at the top right side of the screen.
+each time the player accidentally drop the ball, a heart will lost.
+the game will end if players clears all bricks or lost all hearts.
+score will be calculated based on the bricks the players hit and also the hearts that's left.
+
+Controls:
+during the game, press 3 to immediately end the game.
+all other controls are explained in the splash screen.

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_breakout" default="compile.module.breakout">
+  <dirname property="module.breakout.basedir" file="${ant.file.module_breakout}"/>
+  
+  <property name="module.jdk.home.breakout" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.breakout" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.breakout" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.breakout" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="breakout.output.dir" value="${module.breakout.basedir}/out/production/Breakout"/>
+  <property name="breakout.testoutput.dir" value="${module.breakout.basedir}/out/test/Breakout"/>
+  
+  <path id="breakout.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="breakout.module.production.classpath">
+    <path refid="${module.jdk.classpath.breakout}"/>
+  </path>
+  
+  <path id="breakout.runtime.production.module.classpath">
+    <pathelement location="${breakout.output.dir}"/>
+  </path>
+  
+  <path id="breakout.module.classpath">
+    <path refid="${module.jdk.classpath.breakout}"/>
+    <pathelement location="${breakout.output.dir}"/>
+  </path>
+  
+  <path id="breakout.runtime.module.classpath">
+    <pathelement location="${breakout.testoutput.dir}"/>
+    <pathelement location="${breakout.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.breakout">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.breakout">
+    <patternset refid="excluded.from.module.breakout"/>
+  </patternset>
+  
+  <path id="breakout.module.sourcepath">
+    <dirset dir="${module.breakout.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.breakout" depends="compile.module.breakout.production,compile.module.breakout.tests" description="Compile module Breakout"/>
+  
+  <target name="compile.module.breakout.production" depends="register.custom.compilers" description="Compile module Breakout; production classes">
+    <mkdir dir="${breakout.output.dir}"/>
+    <javac2 destdir="${breakout.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.breakout}/javac">
+      <compilerarg line="${compiler.args.breakout}"/>
+      <bootclasspath refid="breakout.module.bootclasspath"/>
+      <classpath refid="breakout.module.production.classpath"/>
+      <src refid="breakout.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.breakout"/>
+    </javac2>
+    
+    <copy todir="${breakout.output.dir}">
+      <fileset dir="${module.breakout.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.breakout.tests" depends="register.custom.compilers,compile.module.breakout.production" description="compile module Breakout; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.breakout" description="cleanup module">
+    <delete dir="${breakout.output.dir}"/>
+    <delete dir="${breakout.testoutput.dir}"/>
+  </target>
+</project>

@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact name="Breakout:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Breakout_jar</output-path>
+    <root id="root">
+      <element id="archive" name="Breakout.jar">
+        <element id="module-output" name="Breakout" />
+      </element>
+    </root>
+  </artifact>
+</component>
